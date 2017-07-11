@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Battle Room!</title>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled JavaScript -->
+    <script defer src="../global.js"></script>
+    <script defer src="battleRoom.js"></script>
+    <script src="../materialize.js"></script>
+    <!-- google's provided icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled CSS -->
+    <link rel="stylesheet" href="../materialize.css">
+    <link rel="stylesheet" href="battleRoom.css">
+  </head>
+
+<body>
+  <div class='container'>
+    <!-- Header w/ link to trivia Qs -->
+    <div class='row'>
+      <div class='col l9'>
+        <a id='triviaCall' href='../trivia/trivia.html' class="right waves-effect waves-light btn">Play Trivia for Assistance!</a>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col l6 left'>
+        <h3 class='center'>Your Fleet</h3>
+      </div>
+      <div class='col l6 right'>
+        <h3 class='center'>Enemy Fleet</h3>
+      </div>
+    </div>
+  <div class='row'>
+    <div class='col l6 left'>
+      <div class='col l1 left'>
+        <div class='label pixel center'>
+          1
+        </div>
+        <div class='label pixel center'>
+          2
+        </div>
+        <div class='label pixel center'>
+          3
+        </div>
+        <div class='label pixel center'>
+          4
+        </div>
+        <div class='label pixel center'>
+          5
+        </div>
+        <div class='label pixel center'>
+          6
+        </div>
+        <div class='label pixel center'>
+          7
+        </div>
+        <div class='label pixel center'>
+          8
+        </div>
+        <div class='label pixel center'>
+          9
+        </div>
+        <div class='label pixel center'>
+          10
+        </div>
+      </div>
+      <div class='col l11 right'>
+        <div id='yourFleet'>
+        </div>
+        <div class='gridRow'>
+          <div class='spacer'>
+          </div>
+          <div class='label pixel'>
+            A
+          </div>
+          <div class='label pixel'>
+            B
+          </div>
+          <div class='label pixel'>
+            C
+          </div>
+          <div class='label pixel'>
+            D
+          </div>
+          <div class='label pixel'>
+            E
+          </div>
+          <div class='label pixel'>
+            F
+          </div>
+          <div class='label pixel'>
+            G
+          </div>
+          <div class='label pixel'>
+            H
+          </div>
+          <div class='label pixel'>
+            I
+          </div>
+          <div class='label pixel'>
+            J
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col l6 right'>
+      <div class='col l1 left'>
+        <div class='label pixel center'>
+          1
+        </div>
+        <div class='label pixel center'>
+          2
+        </div>
+        <div class='label pixel center'>
+          3
+        </div>
+        <div class='label pixel center'>
+          4
+        </div>
+        <div class='label pixel center'>
+          5
+        </div>
+        <div class='label pixel center'>
+          6
+        </div>
+        <div class='label pixel center'>
+          7
+        </div>
+        <div class='label pixel center'>
+          8
+        </div>
+        <div class='label pixel center'>
+          9
+        </div>
+        <div class='label pixel center'>
+          10
+        </div>
+      </div>
+      <div class='col l11 right'>
+        <div id='enemyFleet'>
+        </div>
+        <div class='gridRow'>
+          <div class='spacer'>
+          </div>
+          <div class='label pixel'>
+            A
+          </div>
+          <div class='label pixel'>
+            B
+          </div>
+          <div class='label pixel'>
+            C
+          </div>
+          <div class='label pixel'>
+            D
+          </div>
+          <div class='label pixel'>
+            E
+          </div>
+          <div class='label pixel'>
+            F
+          </div>
+          <div class='label pixel'>
+            G
+          </div>
+          <div class='label pixel'>
+            H
+          </div>
+          <div class='label pixel'>
+            I
+          </div>
+          <div class='label pixel'>
+            J
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class='row'>
+      <h4 class='left'>Fire Your Shots!</h4>
+    </div>
+    <div class='row valign-wrapper'>
+      <div class="input-field col l8 left">
+        <input placeholder="eg: e1, f10, g9, a1, b5" id='shots' type="text" class="validate">
+      </div>
+      <div class='col l3 right'>
+        <a id='endTurn' class="waves-effect waves-light btn">Fire!</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

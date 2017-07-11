@@ -1,0 +1,31 @@
+.pixel {
+  height: 40px;
+  width: 40px;
+  border-style: solid;
+  border-width: 1px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+  margin-left: -2px;
+  display: inline-block;
+}
+
+.label {
+  width: 36px;
+  padding-left: 25px;
+  padding-top: 10px;
+  border-style: hidden;
+}
+
+.labelCol {
+  display: block;
+  border-style: hidden;
+  margin-top: 1px;
+}
+
+.gridRow {
+  margin: -2px;
+}
+
+h6 {
+  font-size: 15px;
+}

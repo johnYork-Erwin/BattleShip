@@ -1,0 +1,25 @@
+.pixel {
+  display: inline-block;
+  height: 27px;
+  width: 27px;
+  border-style: solid;
+  border-width: 1px;
+  margin: 0px;
+}
+
+.label {
+  border-style: hidden;
+  margin-bottom: -2px;
+  margin-left: -2px;
+  margin-right: -2px;
+}
+
+.gridRow {
+  margin-bottom: -8px;
+}
+
+.spacer {
+  height: 20px;
+  width: 8px;
+  display: inline-block;
+}

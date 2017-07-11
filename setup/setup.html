@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>BattleShip Trivia!</title>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled JavaScript -->
+    <script defer src="../global.js"></script>
+    <script defer src="setup.js"></script>
+    <script src="../materialize.js"></script>
+    <!-- google's provided icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled CSS -->
+    <link rel="stylesheet" href="../materialize.css">
+    <link rel="stylesheet" href="setup.css">
+  </head>
+
+<body>
+  <div class='container'>
+    <h1 class='center'>Place Your Ships!</h1>
+    <div class='row'>
+      <!-- This is where the grid will live -->
+      <div class='col l8 left'>
+          <div class='col l1 left valign-center'>
+            <div class='labelCol pixel center'>
+              1
+            </div>
+            <div class='labelCol pixel center'>
+              2
+            </div>
+            <div class='labelCol pixel center'>
+              3
+            </div>
+            <div class='labelCol pixel center'>
+              4
+            </div>
+            <div class='labelCol pixel center'>
+              5
+            </div>
+            <div class='labelCol pixel center'>
+              6
+            </div>
+            <div class='labelCol pixel center'>
+              7
+            </div>
+            <div class='labelCol pixel center'>
+              8
+            </div>
+            <div class='labelCol pixel center'>
+              9
+            </div>
+            <div class='labelCol pixel center'>
+              10
+            </div>
+          </div>
+          <div class='col l11 right' id='grid'>
+
+          </div>
+            <div class='bottomRow'>
+              <div class='label pixel'>
+                A
+              </div>
+              <div class='label pixel'>
+                B
+              </div>
+              <div class='label pixel'>
+                C
+              </div>
+              <div class='label pixel'>
+                D
+              </div>
+              <div class='label pixel'>
+                E
+              </div>
+              <div class='label pixel'>
+                F
+              </div>
+              <div class='label pixel'>
+                G
+              </div>
+              <div class='label pixel'>
+                H
+              </div>
+              <div class='label pixel'>
+                I
+              </div>
+              <div class='label pixel'>
+                J
+              </div>
+            </div>
+        </div>
+      <!-- This is where ships will live to be placed -->
+      <div class='col l4 right'>
+        <p>Click a ship to begin placing it. Use the space key to alter its orientation.</p>
+        <h6 id='carrier'>Aircraft Carrier</h6>
+        <div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+        </div>
+        <h6 id='battleship'>Battleship</h6>
+        <div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+        </div>
+        <h6 id='sub'>Submarine</h6>
+        <div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+        </div>
+        <h6 id='cruiser'>Cruiser</h6>
+        <div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+        </div>
+        <h6 id='destroyer'>Destroyer</h6>
+        <div>
+          <div class='pixel'>
+          </div>
+          <div class='pixel'>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class='row'>
+      <div class='col l7'>
+        <div id='setState' class="right waves-effect waves-light btn">Fight!</div>
+      </div>
+    </div>
+
+</body>
+
+</html>
