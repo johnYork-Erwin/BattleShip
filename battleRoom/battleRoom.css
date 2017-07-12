@@ -5,6 +5,7 @@
   border-style: solid;
   border-width: 1px;
   margin: 0px;
+  transition: background-color .5s;
 }
 
 .label {

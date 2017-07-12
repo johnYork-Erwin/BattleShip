@@ -9,10 +9,16 @@ const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 var shotsFired = 0;
 var shotsHit = 0;
 
-
-
 $('#endTurn').on('click', () => cleanShots($('#shots').val()));
+$('#triviaCall').on('click', function() {
+  setStorage();
+  window.location.href = '../trivia/trivia.html';
+});
 
+function setStorage() {
+  localStorage.setItem('playerSea', JSON.stringify(playerSea));
+  localStorage.setItem('computerSea', JSON.stringify(computerSea));
+}
 
 function cleanShots(shots) {
   shotsFired++;
@@ -24,7 +30,15 @@ function cleanShots(shots) {
   let row = shots.slice(1);
   row = Number(row)-1;
   handleShots([row, column], 'computer');
+  setTimeout(fireBack, 2000);
 }
+
+function fireBack() {
+  let row = Math.floor(Math.random()*10);
+  let column = Math.floor(Math.random()*10);
+  handleShots([row, column], 'player');
+}
+
 
 function handleShots(coordinates, target) {
   var grid;

@@ -31,6 +31,7 @@ $(window).keypress(function (e) {
 });
 $('#setState').on('click', function() {
   if (numberPlaced === 5) {
+    computerPlace();
     localStorage.setItem('playerSea', JSON.stringify(playerSea));
     localStorage.setItem('computerSea', JSON.stringify(computerSea));
     window.location.href = '../battleRoom/battleRoom.html';
@@ -44,6 +45,31 @@ battleship.on('click', () => pickUpPiece(4, 'battleship'));
 sub.on('click', () => pickUpPiece(3, 'sub'));
 cruiser.on('click', () => pickUpPiece(3, 'cruiser'));
 destroyer.on('click', () => pickUpPiece(2, 'destroyer'));
+
+
+
+
+
+
+
+
+
+
+
+function computerPlace() {
+  let ships = {'carrier':5, 'battleship':4, 'sub':3, 'cruiser':3, 'destroyer':2};
+}
+
+
+
+
+
+
+
+
+
+
+
 
 function constructSea() {
   let retVal = [];
@@ -71,53 +97,51 @@ function placePiece(event) {
     if (inspectPlacement(current) === false) {
       return;
     }
-    numberPlaced++;
+    console.log(current);
     place(current);
     dropPiece();
+    numberPlaced++;
   }
 }
 
 function inspectPlacement (startPixel) {
   let boxNumber = $('div').index(startPixel);
+  boxNumber = boxNumber - 16;
+  let row = Math.floor(boxNumber/11);
+  let column = boxNumber % 11;
   //checking if it goes off the edges
-  if (
-    (horizontal && (((boxNumber % 11) < 5) && (boatInHandLength + (boxNumber % 11)) > 4)) ||
-    (!horizontal && (Math.floor(boxNumber/11) + boatInHandLength > 11))
-  ){
+  if ((horizontal && (column + boatInHandLength > 10)) || (!horizontal && row + boatInHandLength > 10)) {
     return false;
   }
   //checks if it will overlap w/ anything
   for (let i = 0; i < boatInHandLength; i++) {
-    boxNumber = $('div').index(startPixel);
-    let row = Math.floor(boxNumber/11);
-    let column = (boxNumber - 16) % 11;
-    if (playerSea[row-1][column] !== 0) {
+    console.log(playerSea[row][column])
+    if (playerSea[row][column] !== 0) {
       return false;
     }
     if (horizontal) {
-      startPixel = $(startPixel).next()[0];
+      column++;
     } else {
       // if vertical alignemnt
-      let nextRow = $($(startPixel).parent()).next();
-      startPixel = nextRow.children()[column];
+      row++;
     }
   }
 }
 
 function place(startPixel) {
   for (let i = 0; i < boatInHandLength; i++) {
-    let location = $('div').index(startPixel);
-    let row = Math.floor(location/11)-1;
-    let column = (location - 16) % 11;
+    let location = $('div').index(startPixel)-16;
+    let row = Math.floor(location/11);
+    let column = location % 11;
     startPixel.style.backgroundColor = 'black';
     startPixel.style.borderColor = 'white';
-    playerSea[row-1][column] = boatInHand;
+    playerSea[row][column] = boatInHand;
     if (horizontal) {
       startPixel = $(startPixel).next()[0];
     } else {
       // if vertical alignemnt
-      let row = $($(startPixel).parent()).next();
-      startPixel = row.children()[column];
+      let nextRow = $($(startPixel).parent()).next();
+      startPixel = nextRow.children()[column];
     }
   }
 }
