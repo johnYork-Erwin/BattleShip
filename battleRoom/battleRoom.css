@@ -24,3 +24,8 @@
   width: 8px;
   display: inline-block;
 }
+
+.divider {
+  height: 10px;
+  background-color: white;
+}

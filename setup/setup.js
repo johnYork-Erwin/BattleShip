@@ -1,7 +1,12 @@
 constructGrid();
 
 let playerSea = constructSea();
-let computerSea = constructSea();
+let computerSea = playerSea;
+let results = {'trivia':null, 'result': null, 'shotsFired': 0, 'shotsHit': 0, 'boatsSunk':0, 'boatsLost':0,
+  'playerFleet':{'battleship':4, 'cruiser':3, 'carrier':5, 'destroyer':2, 'sub':3},
+  'computerFleet':{'battleship':4, 'cruiser':3, 'carrier':5, 'destroyer':2, 'sub':3},
+  'triviaAnsweredRight':0, 'triviaAnsweredWrong':0, 'triviaQuestions':{}
+};
 
 let carrying = true;
 let boatInHand = 'carrier';
@@ -32,8 +37,10 @@ $(window).keypress(function (e) {
 $('#setState').on('click', function() {
   if (numberPlaced === 5) {
     computerPlace();
+    localStorage.clear();
     localStorage.setItem('playerSea', JSON.stringify(playerSea));
     localStorage.setItem('computerSea', JSON.stringify(computerSea));
+    localStorage.setItem('results', JSON.stringify(results));
     window.location.href = '../battleRoom/battleRoom.html';
   } else {
     Materialize.toast('Finish placing your ships first!', 4000);

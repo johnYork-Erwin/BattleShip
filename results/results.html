@@ -8,17 +8,35 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled JavaScript -->
     <script defer src="../global.js"></script>
-    <script defer src="trivia.js"></script>
+    <script defer src="results.js"></script>
     <script src="../materialize.js"></script>
     <!-- google's provided icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled CSS -->
     <link rel="stylesheet" href="../materialize.css">
-    <link rel="stylesheet" href="trivia.css">
+    <link rel="stylesheet" href="results.css">
   </head>
 
 <body>
-  
+  <div class='container'>
+    <div class='row'>
+      <div id='title' class='col l12'>
+      </div>
+    </div>
+
+    <div class='container'>
+      <div class='row'>
+        <div id='summary' class='col l12'>
+          <h4 class='center'>Results</h4>
+          <div class='divider'>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col l12 center'>
+      <a id='newGame' class="center waves-effect waves-light btn">Play Again!</a>
+    </div>
+  </div>
 </body>
 
 </html>
