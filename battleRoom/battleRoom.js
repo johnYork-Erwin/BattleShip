@@ -1,40 +1,43 @@
 var playerSea = JSON.parse(localStorage.getItem('playerSea'));
 var computerSea = JSON.parse(localStorage.getItem('computerSea'));
 var results = JSON.parse(localStorage.getItem('results'));
+const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
 $('#shootBanner').text('Fire your ' + (5-results['boatsLost']) + ' shots!');
 constructFleet('player');
 constructFleet('computer');
 checkTriviaResults();
 
-const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-
-
 $('#quitGame').on('click', function() {
   localStorage.setItem('results', JSON.stringify(results));
   endGame('lose');
 });
 $('#endTurn').on('click', () => cleanShots($('#shots').val()));
+
+//trivia handlers
 $('#triviaCall').on('click', function() {
   setStorage();
   window.location.href = '../trivia/trivia.html';
 });
+function setStorage() {
+  localStorage.setItem('playerSea', JSON.stringify(playerSea));
+  localStorage.setItem('computerSea', JSON.stringify(computerSea));
+  localStorage.setItem('results', JSON.stringify(results));
+}
 
-
+//functions on load
 function checkTriviaResults() {
   if (results['trivia'] !== null) {
     for (let i = 0; i < 3; i++) {
       let shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
       let target = computerSea[shot[0]][shot[1]];
       if (results['trivia'] === 'right') {
-      //score 3 hits
         while (target === 0 || target === null || target === 1) {
           shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
           target = computerSea[shot[0]][shot[1]];
         }
         handleShots(shot, 'computer');
       } else {
-      //score 3 misses
         while (target !== 0) {
           shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
           target = computerSea[shot[0]][shot[1]];
@@ -46,10 +49,35 @@ function checkTriviaResults() {
   }
 }
 
-function setStorage() {
-  localStorage.setItem('playerSea', JSON.stringify(playerSea));
-  localStorage.setItem('computerSea', JSON.stringify(computerSea));
-  localStorage.setItem('results', JSON.stringify(results));
+function constructFleet (player) {
+  let grid;
+  let sea;
+  if (player === 'player') {
+    grid = $('#yourFleet')
+    sea = playerSea;
+  } else {
+    grid = $('#enemyFleet');
+    sea = computerSea;
+  }
+  for (let i = 0; i < 10; i++) {
+    let row = $('<div>').addClass('gridRow');
+    for (let j =0; j < 10; j++) {
+      let pixel = $('<div>').addClass('pixel');
+      if (player === 'player') {
+        if (typeof sea[i][j] === 'string') {
+          pixel[0].style.backgroundColor = 'black';
+          pixel[0].style.borderColor = 'white';
+        }
+      }
+      if (sea[i][j] === null) {
+        pixel[0].style.backgroundColor = 'red';
+      } else if (sea[i][j] === 1) {
+        pixel[0].style.backgroundColor = 'grey';
+      }
+      row.append(pixel);
+    }
+    grid.append(row);
+  }
 }
 
 function cleanShots(shots) {
@@ -162,37 +190,4 @@ function endGame(result) {
 
 function moveScreen() {
   window.location.href = '../results/results.html'
-}
-
-function constructFleet (player) {
-  //constructs rows
-  let grid;
-  let sea;
-  if (player === 'player') {
-    grid = $('#yourFleet')
-    sea = playerSea;
-  } else {
-    grid = $('#enemyFleet');
-    sea = computerSea;
-  }
-  for (let i = 0; i < 10; i++) {
-    let row = $('<div>').addClass('gridRow');
-    for (let j =0; j < 10; j++) {
-      let pixel = $('<div>').addClass('pixel');
-      //Set background color depending on fleet config for player
-      if (player === 'player') {
-        if (typeof sea[i][j] === 'string') {
-          pixel[0].style.backgroundColor = 'black';
-          pixel[0].style.borderColor = 'white';
-        }
-      }
-      if (sea[i][j] === null) {
-        pixel[0].style.backgroundColor = 'red';
-      } else if (sea[i][j] === 1) {
-        pixel[0].style.backgroundColor = 'grey';
-      }
-      row.append(pixel);
-    }
-    grid.append(row);
-  }
 }
