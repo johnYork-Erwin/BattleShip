@@ -3,11 +3,15 @@
 }
 
 .divider {
-  background-color: 'black';
+  background-color: black;
   height: 1px;
 }
 
 .resultsRow {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+a {
+  margin: 15px;
 }

@@ -2,6 +2,7 @@ var playerSea = JSON.parse(localStorage.getItem('playerSea'));
 var computerSea = JSON.parse(localStorage.getItem('computerSea'));
 var results = JSON.parse(localStorage.getItem('results'));
 
+$('#shootBanner').text('Fire your ' + (5-results['boatsLost']) + ' shots!');
 constructFleet('player');
 constructFleet('computer');
 checkTriviaResults();
@@ -11,7 +12,7 @@ const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
 $('#quitGame').on('click', function() {
   localStorage.setItem('results', JSON.stringify(results));
-  window.location.href = '../results/results.html';
+  endGame('lose');
 });
 $('#endTurn').on('click', () => cleanShots($('#shots').val()));
 $('#triviaCall').on('click', function() {
@@ -19,21 +20,24 @@ $('#triviaCall').on('click', function() {
   window.location.href = '../trivia/trivia.html';
 });
 
+
 function checkTriviaResults() {
-  let trivia = results['trivia'];
-  if (trivia !== null) {
+  if (results['trivia'] !== null) {
     for (let i = 0; i < 3; i++) {
       let shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
-      if (trivia === 'right') {
+      let target = computerSea[shot[0]][shot[1]];
+      if (results['trivia'] === 'right') {
       //score 3 hits
-        while (computerSea[shot[0]][shot[1]] === 0 || computerSea[shot[0]][shot[1]] === null) {
+        while (target === 0 || target === null || target === 1) {
           shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
+          target = computerSea[shot[0]][shot[1]];
         }
         handleShots(shot, 'computer');
       } else {
       //score 3 misses
-        while (computerSea[shot[0]][shot[1]] !== 0) {
+        while (target !== 0) {
           shot = [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
+          target = computerSea[shot[0]][shot[1]];
         }
         handleShots(shot, 'computer');
       }
@@ -49,20 +53,46 @@ function setStorage() {
 }
 
 function cleanShots(shots) {
-  results['shotsFired']++;
-  shots = shots.trim();
-  let column = shots[0];
-  column = column.toUpperCase();
-  column = alphabet.indexOf(column);
-  let row = shots.slice(1);
-  row = Number(row)-1;
-  handleShots([row, column], 'computer');
-  setTimeout(fireBack, 2000);
+  let array = shots.split(',');
+  let shotsAllowed = 5 - results['boatsLost'];
+  if (array.length !== shotsAllowed) {
+    Materialize.toast('You have a total of ' + shotsAllowed + ' shots to take. Use them all, each separated by a , .', 3000);
+    return;
+  }
+  for (let i = 0; i < shotsAllowed; i++) {
+    results['shotsFired']++;
+    let shot = array[i];
+    shot = shot.trim();
+    let column = shot[0];
+    column = column.toUpperCase();
+    column = alphabet.indexOf(column);
+    let row = shot.slice(1);
+    row = Number(row)-1;
+    handleShots([row, column], 'computer');
+  }
+  //switches shotsAllowed to be the number the computer's currently allowed to take.
+  shotsAllowed = 5 - results['boatsSunk'];
+  for (let i = 0; i < shotsAllowed; i++) {
+    setTimeout(fireBack, 2000);
+  }
 }
 
 function fireBack() {
-  let row = Math.floor(Math.random()*10);
-  let column = Math.floor(Math.random()*10);
+  let alreadyShot = true;
+  let row;
+  let column;
+  let checkAgainst = results['computerShotsTaken'];
+  while (alreadyShot) {
+    row = Math.floor(Math.random()*10);
+    column = Math.floor(Math.random()*10);
+    alreadyShot = false;
+    for (let i = 0; i < checkAgainst.length; i++) {
+      if (row === checkAgainst[i][0] && column === checkAgainst[i][1]) {
+        alreadyShot = true;
+      }
+    }
+  }
+  results['computerShotsTaken'].push([row, column]);
   handleShots([row, column], 'player');
 }
 
@@ -91,7 +121,7 @@ function handleShots(coordinates, target) {
       results['shotsHit']++;
       computerSea[row][column] = null;
     } else {
-      Materialize.toast('They scored a hit on your' + boatType + '!', 2000);
+      Materialize.toast('They scored a hit on your ' + boatType + '!', 2000);
       playerSea[row][column] = null;
     }
     results[fleet][boatType]--;
@@ -99,17 +129,18 @@ function handleShots(coordinates, target) {
     if (results[fleet][boatType] === 0) {
       if (target === 'computer') {
         results['boatsSunk']++;
-        Materialize.toast('You sank their ' + boatType + '!', 4000);
+        Materialize.toast('You sank their ' + boatType + '! They now have only ' + (5-results['boatsSunk']) + ' shots per round.', 4000);
         if (results['boatsSunk'] === 5) {
           Materialize.toast('You won the game!', 3000);
-          setTimeout(endGame('win'), 3000);
+          endGame('win');
         }
       } else {
         results['boatsLost']++;
-        Materialize.toast('They sank your ' + boatType + '!', 4000);
+        Materialize.toast('They sank your ' + boatType + '! You now have only ' + (5-results['boatsLost']) + ' shots per round.', 4000);
+        $('#shootBanner').text('Fire your ' + (5-results['boatsLost']) + ' shots!');
         if (results['boatsLost'] === 5) {
           Materialize.toast('You lost the game...', 4000);
-          setTimeout(endGame('lose'), 3000);
+          endGame('lose');
         }
       }
     }
@@ -126,7 +157,11 @@ function handleShots(coordinates, target) {
 function endGame(result) {
   results['result'] = result;
   localStorage.setItem('results', JSON.stringify(results));
-  window.location.href = '../results/results.html';
+  setTimeout(moveScreen, 1000);
+}
+
+function moveScreen() {
+  window.location.href = '../results/results.html'
 }
 
 function constructFleet (player) {

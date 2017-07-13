@@ -28,4 +28,55 @@
 
 h6 {
   font-size: 15px;
+  background-color: silver;
+}
+
+#battleship {
+  justify-content: center;
+  height: 38px;
+  width: 158px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+#cruiser {
+  justify-content: center;
+  height: 38px;
+  width: 118px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+#destroyer {
+  justify-content: center;
+  height: 38px;
+  width: 78px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+#carrier {
+  justify-content: center;
+  height: 38px;
+  width: 198px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+#sub {
+  justify-content: center;
+  height: 38px;
+  width: 118px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 5px;
 }

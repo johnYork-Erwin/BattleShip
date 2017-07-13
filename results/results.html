@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>BattleShip Trivia!</title>
     <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script defer type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled JavaScript -->
+    <script defer src="../materialize.js"></script>
     <script defer src="../global.js"></script>
     <script defer src="results.js"></script>
-    <script src="../materialize.js"></script>
     <!-- google's provided icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled CSS -->
@@ -31,8 +31,15 @@
           <div class='divider'>
           </div>
         </div>
+
       </div>
     </div>
+    <div class='row'>
+      <div class='col l12 center' id='triviaButtons'>
+      </div>
+
+    </div>
+
     <div class='col l12 center'>
       <a id='newGame' class="center waves-effect waves-light btn">Play Again!</a>
     </div>

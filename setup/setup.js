@@ -1,17 +1,15 @@
 constructGrid();
 
-let playerSea = constructSea();
-let computerSea = playerSea;
 let results = {'trivia':null, 'result': null, 'shotsFired': 0, 'shotsHit': 0, 'boatsSunk':0, 'boatsLost':0,
   'playerFleet':{'battleship':4, 'cruiser':3, 'carrier':5, 'destroyer':2, 'sub':3},
   'computerFleet':{'battleship':4, 'cruiser':3, 'carrier':5, 'destroyer':2, 'sub':3},
-  'triviaAnsweredRight':0, 'triviaAnsweredWrong':0, 'triviaQuestions':{}
+  'triviaAnsweredRight':0, 'triviaAnsweredWrong':0, 'triviaQuestions':{}, 'computerShotsTaken':[]
 };
 
-let carrying = true;
-let boatInHand = 'carrier';
-let boatInHandLength = 5;
-let horizontal = false;
+let carrying = false;
+let boatInHand = null;
+let boatInHandLength = 0;
+let horizontal = true;
 
 let battleship = $('#battleship');
 let carrier = $('#carrier');
@@ -19,6 +17,9 @@ let cruiser = $('#cruiser');
 let destroyer = $('#destroyer');
 let sub = $('#sub');
 let numberPlaced = 0;
+let playerSea = constructSea();
+let computerSea = constructSea();
+computerPlace();
 
 $('#grid').on('click', placePiece);
 $(window).keypress(function (e) {
@@ -36,7 +37,6 @@ $(window).keypress(function (e) {
 });
 $('#setState').on('click', function() {
   if (numberPlaced === 5) {
-    computerPlace();
     localStorage.clear();
     localStorage.setItem('playerSea', JSON.stringify(playerSea));
     localStorage.setItem('computerSea', JSON.stringify(computerSea));
@@ -53,30 +53,33 @@ sub.on('click', () => pickUpPiece(3, 'sub'));
 cruiser.on('click', () => pickUpPiece(3, 'cruiser'));
 destroyer.on('click', () => pickUpPiece(2, 'destroyer'));
 
-
-
-
-
-
-
-
-
-
-
 function computerPlace() {
   let ships = {'carrier':5, 'battleship':4, 'sub':3, 'cruiser':3, 'destroyer':2};
+  for (let key in ships) {
+    let row = Math.floor(Math.random()*10);
+    let column = Math.floor(Math.random()*10);
+    let alignment = Math.round(Math.random());
+    if (alignment === 1) {
+      horizontal = !horizontal;
+    }
+    while (inspectPlacement([row,column], 'computer', ships[key]) === false) {
+      row = Math.floor(Math.random()*10);
+      column = Math.floor(Math.random()*10);
+    }
+    computerSeaPlace(row, column, key, ships[key]);
+  }
 }
 
-
-
-
-
-
-
-
-
-
-
+function computerSeaPlace(row, column, ship, length) {
+  for (let i = 0; i < length; i++) {
+    computerSea[row][column] = ship;
+    if (horizontal) {
+      column++;
+    } else {
+      row++;
+    }
+  }
+}
 
 function constructSea() {
   let retVal = [];
@@ -101,29 +104,36 @@ function placePiece(event) {
     //place piece here
     let current = event.target;
     //false means it didn't pass the test, invalid is falsey ;)
-    if (inspectPlacement(current) === false) {
+    let boxNumber = $('div').index(current);
+    boxNumber = boxNumber - 16;
+    let row = Math.floor(boxNumber/11);
+    let column = boxNumber % 11;
+    if (inspectPlacement([row, column], 'player', boatInHandLength) === false) {
       return;
     }
     console.log(current);
-    place(current);
+    place([row, column]);
     dropPiece();
     numberPlaced++;
   }
 }
 
-function inspectPlacement (startPixel) {
-  let boxNumber = $('div').index(startPixel);
-  boxNumber = boxNumber - 16;
-  let row = Math.floor(boxNumber/11);
-  let column = boxNumber % 11;
+function inspectPlacement (coordinates, player, length) {
+  let fleet;
+  if (player === 'player') {
+    fleet = playerSea;
+  } else {
+    fleet = computerSea;
+  }
+  let row = coordinates[0];
+  let column = coordinates[1];
   //checking if it goes off the edges
-  if ((horizontal && (column + boatInHandLength > 10)) || (!horizontal && row + boatInHandLength > 10)) {
+  if ((horizontal && (column + length > 10)) || (!horizontal && row + length > 10)) {
     return false;
   }
   //checks if it will overlap w/ anything
-  for (let i = 0; i < boatInHandLength; i++) {
-    console.log(playerSea[row][column])
-    if (playerSea[row][column] !== 0) {
+  for (let i = 0; i < length; i++) {
+    if (fleet[row][column] !== 0) {
       return false;
     }
     if (horizontal) {
@@ -135,20 +145,19 @@ function inspectPlacement (startPixel) {
   }
 }
 
-function place(startPixel) {
+function place(coordinates) {
+  let row = coordinates[0];
+  let column = coordinates[1];
   for (let i = 0; i < boatInHandLength; i++) {
-    let location = $('div').index(startPixel)-16;
-    let row = Math.floor(location/11);
-    let column = location % 11;
+    let startPixel = $($('#grid').children()[row]).children()[column];
     startPixel.style.backgroundColor = 'black';
     startPixel.style.borderColor = 'white';
     playerSea[row][column] = boatInHand;
     if (horizontal) {
-      startPixel = $(startPixel).next()[0];
+      column++;
     } else {
       // if vertical alignemnt
-      let nextRow = $($(startPixel).parent()).next();
-      startPixel = nextRow.children()[column];
+      row++;
     }
   }
 }
@@ -156,8 +165,6 @@ function place(startPixel) {
 function dropPiece() {
   let shipTitle = '#' + boatInHand;
   let ship = $(shipTitle);
-  let shipShape = ship.next();
-  shipShape.remove();
   ship.remove();
   carrying = false;
   boatInHandLength = null;
