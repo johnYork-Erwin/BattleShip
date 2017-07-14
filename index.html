@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>BattleShip Trivia!</title>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled JavaScript -->
+    <script src="materialize.js"></script>
+    <!-- google's provided icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled CSS -->
+    <link rel="stylesheet" href="materialize.css">
+    <link rel="stylesheet" href="index.css">
+  </head>
+
+<body>
+  <div class='container'>
+    <div class='row'>
+      <div class='col l8 offset-l2'>
+        <h1 id='banner' class='center'>Battle Ship!</h1>
+      </div>
+    </div>
+    <div class='row'>
+      <h2 class='center col l4 offset-l4 white'>Rules</h2>
+    </div>
+    <div class='row'>
+      <div class='col l10 offset-l1 center white'>
+        <p>Battleship is a game where each player has five ships hidden on a 10x10 grid. The goal of the game is to sink your opponents fleet before they sink yours. The five ships are of different lengths and you must hit each segment of a ship in order to sink it. This site implements the less popular 'SALVO' variation where each surviving ship allows the player an independant shot.</p>
+        <p>There are five kinds of ships. Their titles and lengths are listed below.</p>
+        <ul>
+          <li>Carrier:5</li>
+          <li>Battleship:4</li>
+          <li>Cruiser:3</li>
+          <li>Submarine:3</li>
+          <li>Destroyer:2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class='row'>
+      <h2 class='col l6 offset-l3 center white'>Trivia Bonus!</h2>
+    </div>
+    <div class='row'>
+      <div class='col l10 offset-l1 white center'>
+        <p>This site also implemented a trivia minigame! At any point in time during the battle you can use one of your three trivia bonus attacks to call in the aid of skilled bomber pilots. However, they will only get the correct coordinates if you answer the question correctly. On a correct answer they will score 3 random hits on the enemy fleet. On an unsuccessful answer they will score 3 misses on the enemy fleet. Either way they've helped you though!</p>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col l12 center'>
+      <a href='setup/setup.html' class="waves-effect waves-light btn">New Game!</a>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

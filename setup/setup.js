@@ -107,7 +107,7 @@ function placePiece(event) {
     let boxNumber = $('div').index(current);
     boxNumber = boxNumber - 16;
     let row = Math.floor(boxNumber/11);
-    let column = boxNumber % 11;
+    let column = boxNumber % 11 -1;
     if (inspectPlacement([row, column], 'player', boatInHandLength) === false) {
       return;
     }
@@ -129,11 +129,17 @@ function inspectPlacement (coordinates, player, length) {
   let column = coordinates[1];
   //checking if it goes off the edges
   if ((horizontal && (column + length > 10)) || (!horizontal && row + length > 10)) {
+    if (player === 'player') {
+      Materialize.toast('That would go off the grid! Try again.', 3000);
+    }
     return false;
   }
   //checks if it will overlap w/ anything
   for (let i = 0; i < length; i++) {
     if (fleet[row][column] !== 0) {
+      if (player === 'player') {
+        Materialize.toast('That would land on top of another ship! Try again.', 3000);
+      }
       return false;
     }
     if (horizontal) {
@@ -176,7 +182,7 @@ function constructGrid() {
   for (let i = 0; i < 10; i++) {
     let row = $('<div>').addClass('gridRow');
     for (let j = 0; j <10; j++) {
-      row.append($('<div>').addClass('pixel'));
+      row.append($('<div>').addClass('pixel').css('background-color', 'white'));
     }
     grid.append(row);
   }

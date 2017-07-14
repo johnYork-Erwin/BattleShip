@@ -9,6 +9,7 @@
 }
 
 .label {
+  padding-left: 10px;
   border-style: hidden;
   margin-bottom: -2px;
   margin-left: -2px;
@@ -20,16 +21,37 @@
 }
 
 .spacer {
-  height: 20px;
-  width: 8px;
-  display: inline-block;
+  height: 50px;
 }
 
-.divider {
-  height: 10px;
-  background-color: white;
+a {
+  margin: 10px;
 }
 
 #triviaCall {
   margin-top: 5px;
+}
+
+body {
+  background-image: url(../hero.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#bottomRow {
+  padding: 5px;
+  background-color: plum;
+  border-radius: 5px;
+}
+
+#player {
+  background-color: teal;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+
+#computer {
+  background-color: olivedrab;
+  border-radius: 10px;
+  padding-top: 10px;
 }

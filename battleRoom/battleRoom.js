@@ -63,16 +63,18 @@ function constructFleet (player) {
     let row = $('<div>').addClass('gridRow');
     for (let j =0; j < 10; j++) {
       let pixel = $('<div>').addClass('pixel');
+      if (sea[i][j] === null) {
+        pixel[0].style.backgroundColor = 'red';
+      } else if (sea[i][j] === 1) {
+        pixel[0].style.backgroundColor = 'silver';
+      } else {
+        pixel[0].style.backgroundColor = 'white';
+      }
       if (player === 'player') {
         if (typeof sea[i][j] === 'string') {
           pixel[0].style.backgroundColor = 'black';
           pixel[0].style.borderColor = 'white';
         }
-      }
-      if (sea[i][j] === null) {
-        pixel[0].style.backgroundColor = 'red';
-      } else if (sea[i][j] === 1) {
-        pixel[0].style.backgroundColor = 'grey';
       }
       row.append(pixel);
     }
@@ -82,13 +84,9 @@ function constructFleet (player) {
 
 function cleanShots(shots) {
   let array = shots.split(',');
-  let shotsAllowed = 5 - results['boatsLost'];
-  if (array.length !== shotsAllowed) {
-    Materialize.toast('You have a total of ' + shotsAllowed + ' shots to take. Use them all, each separated by a , .', 3000);
-    return;
-  }
-  for (let i = 0; i < shotsAllowed; i++) {
-    results['shotsFired']++;
+  let usableArray = [];
+  for (let i =0; i < array.length; i++) {
+    let temp = array[i];
     let shot = array[i];
     shot = shot.trim();
     let column = shot[0];
@@ -96,7 +94,24 @@ function cleanShots(shots) {
     column = alphabet.indexOf(column);
     let row = shot.slice(1);
     row = Number(row)-1;
-    handleShots([row, column], 'computer');
+    console.log(row);
+    console.log(row > 9);
+    console.log(typeof row);
+    if (row > 9 || row < 0 || column === -1 || isNaN(row)) {
+      Materialize.toast('Some or all of those coordinates are invalid, try again.', 3000);
+      return;
+    } else {
+      usableArray.push([row, column]);
+    }
+  }
+  let shotsAllowed = 5 - results['boatsLost'];
+  if (array.length > shotsAllowed) {
+    Materialize.toast('You only have ' + shotsAllowed + ' shots to take. Use only that many, each separated by a , .', 3000);
+    return;
+  }
+  for (let i = 0; i < usableArray.length; i++) {
+    results['shotsFired']++;
+    handleShots(usableArray[i], 'computer');
   }
   //switches shotsAllowed to be the number the computer's currently allowed to take.
   shotsAllowed = 5 - results['boatsSunk'];
@@ -173,7 +188,7 @@ function handleShots(coordinates, target) {
       }
     }
   } else if (boatType === 0) {
-    targetX.style.backgroundColor = 'grey';
+    targetX.style.backgroundColor = 'silver';
     if (target === 'computer') {
       computerSea[row][column] = 1;
     } else {

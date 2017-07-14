@@ -20,6 +20,8 @@
 <body>
   <div class='container'>
     <!-- Header w/ link to trivia Qs -->
+    <div class='spacer'>
+    </div>
     <div class='row'>
       <div class='col l12 center'>
         <a id='triviaCall' class="center waves-effect waves-light btn">Play Trivia for Assistance!</a>
@@ -27,14 +29,14 @@
     </div>
     <div class='row'>
       <div class='col l6'>
-        <h3 class='left'>Your Fleet</h3>
+        <h3 class='center'>Your Fleet</h3>
       </div>
       <div class='col l6'>
-        <h3 class='left'>Enemy Fleet</h3>
+        <h3 class='center'>Enemy Fleet</h3>
       </div>
     </div>
   <div class='row'>
-    <div class='col l6 left'>
+    <div id='player' class='col l5 left'>
       <div class='col l1 left'>
         <div class='label pixel center'>
           1
@@ -71,8 +73,6 @@
         <div id='yourFleet'>
         </div>
         <div class='gridRow'>
-          <div class='spacer'>
-          </div>
           <div class='label pixel'>
             A
           </div>
@@ -106,7 +106,7 @@
         </div>
       </div>
     </div>
-    <div class='col l6'>
+    <div id='computer' class='col l5 right'>
       <div class='col l1 left'>
         <div class='label pixel center'>
           1
@@ -143,9 +143,7 @@
         <div id='enemyFleet'>
         </div>
         <div class='gridRow'>
-          <div class='spacer'>
-          </div>
-          <div class='label pixel'>
+          <div class='label pixel valign-wrapper'>
             A
           </div>
           <div class='label pixel'>
@@ -179,18 +177,14 @@
       </div>
     </div>
   </div>
-    <div class='row'>
-      <h4 id='shootBanner' class='left'></h4>
-    </div>
-    <div class='row valign-wrapper'>
+    <div id='bottomRow' class='row valign-wrapper'>
+      <h4 id='shootBanner' class='center'></h4>
       <div class="input-field col l8 left">
         <input placeholder="eg: e1, f10, g9, a1, b5" id='shots' type="text" class="validate">
       </div>
       <div class='col l3 right'>
         <div class='col l12 center'>
           <a id='endTurn' class="center waves-effect waves-light btn">Fire!</a>
-          <div class='divider'>
-          </div>
           <a id='quitGame' class='centerwaves-effect waves-light btn'>Quit Game</a>
         </div>
       </div>

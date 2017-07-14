@@ -23,8 +23,7 @@ function getQuestion () {
     let answerLocation = Math.floor(Math.random()*4);
     for (let i = 0; i < 4; i++) {
       let answerNumber = 'test' + i;
-
-      let clickable = $('<p>');
+      let clickable = $('<div>').addClass('col l6 offset-l3');
       let input = $('<input>').attr({
         'name' : 'group1',
         'type' : 'radio',
@@ -35,13 +34,13 @@ function getQuestion () {
       });
       if (i === answerLocation) {
         label.text(answer);
-        input.addClass('right');
+        input.addClass('right left');
       } else {
         let whereLie = Math.floor(Math.random()*lies.length);
         let whichLie = lies[whereLie];
         lies.splice(whereLie, 1);
         label.text(whichLie);
-        input.addClass('wrong');
+        input.addClass('wrong left');
       }
       clickable.append(input).append(label);
       answersDiv.append(clickable);
