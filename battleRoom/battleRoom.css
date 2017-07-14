@@ -28,10 +28,6 @@ a {
   margin: 10px;
 }
 
-#triviaCall {
-  margin-top: 5px;
-}
-
 body {
   background-image: url(../hero.jpeg);
   background-repeat: no-repeat;
@@ -40,18 +36,20 @@ body {
 
 #bottomRow {
   padding: 5px;
-  background-color: plum;
+  background-color: #4cd362;
   border-radius: 5px;
 }
 
+
+
 #player {
-  background-color: teal;
+  background-color: #11619e;
   border-radius: 10px;
   padding-top: 10px;
 }
 
 #computer {
-  background-color: olivedrab;
+  background-color: #0f7047;
   border-radius: 10px;
   padding-top: 10px;
 }

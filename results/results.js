@@ -20,7 +20,7 @@ function constructBanner() {
 function constructResults() {
   let percentage = 'N/A';
   if (results['triviaAnsweredRight'] !== 0 || results['triviaAnsweredWrong'] !== 0) {
-    percentage = (results['triviaAnsweredRight']/(results['triviaAnsweredWrong']+results['triviaAnsweredRight'])*100) + '%';
+    percentage = (results['triviaAnsweredRight']/(results['triviaAnsweredWrong']+results['triviaAnsweredRight'])*100).toFixed(2) + '%';
   }
   let target = $('#summary');
   results['percentage'] = percentage;
