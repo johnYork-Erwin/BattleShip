@@ -169,6 +169,7 @@ function handleShots(coordinates, target) {
     }
     results[fleet][boatType]--;
     targetX.style.backgroundColor = 'red';
+    targetX.style.borderColor = 'black';
     if (results[fleet][boatType] === 0) {
       if (target === 'computer') {
         results['boatsSunk']++;
