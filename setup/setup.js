@@ -118,6 +118,22 @@ function placePiece(event) {
   }
 }
 
+function allowDrop(ev) {
+    ev.preventDefault();
+    console.log(ev.path[0])
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    console.log(data)
+    console.log(ev.path[0])
+}
+
 function inspectPlacement (coordinates, player, length) {
   let fleet;
   if (player === 'player') {
