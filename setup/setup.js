@@ -120,7 +120,7 @@ function placePiece(event) {
 
 function allowDrop(ev) {
     ev.preventDefault();
-    console.log(ev.path[0])
+    console.log(ev.path[0] + 'allow drop')
 }
 
 function drag(ev) {
@@ -130,8 +130,12 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    console.log('dropping')
     console.log(data)
     console.log(ev.path[0])
+    let string = '#' + data
+    let boat = $(string)
+    $(ev.path[0]).append(boat)
 }
 
 function inspectPlacement (coordinates, player, length) {
