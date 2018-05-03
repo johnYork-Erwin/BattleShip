@@ -13,10 +13,10 @@ stay within a theme.
 
 ## Technologies
 
-This site spans a few different pages each built with the Materialize framework and added to with fairly few extra
-CSS code. It is written in HTML and sometimes the HTML is actually rendered by jQuery in the attached JavaScript files.
-To call on the API we used AJAX and (because we're traveling between four different pages each game that gets played) we
-are extensively making use of localStorage to set and retrieve data about the game state.
+This site spans a few different pages each built with the Materialize framework and added to with only a little extra
+CSS code. It is written in HTML and what JavaScript is run accesses the HTML using jQuery. To call on the API I used AJAX
+and (because the user travels between four different pages for each game played) I extensively making use of
+localStorage to set and retrieve data about the game state.
 
 ## Greatest Difficulty
 
