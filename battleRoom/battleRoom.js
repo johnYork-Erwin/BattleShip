@@ -19,6 +19,7 @@ $('#triviaCall').on('click', function() {
   setStorage();
   window.location.href = '../trivia/trivia.html';
 });
+
 function setStorage() {
   localStorage.setItem('playerSea', JSON.stringify(playerSea));
   localStorage.setItem('computerSea', JSON.stringify(computerSea));
