@@ -2,8 +2,6 @@ $(document).ready(function() {
   $('.modal-trigger').leanModal();
 })
 
-
-
 let results = JSON.parse(localStorage.getItem('results'));
 
 constructBanner();
